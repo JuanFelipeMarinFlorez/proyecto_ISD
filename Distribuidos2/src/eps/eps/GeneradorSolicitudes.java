@@ -1,3 +1,4 @@
+package eps;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,7 +14,7 @@ public class GeneradorSolicitudes extends Thread{
         try{
             while(true){
                 try {
-                    File archivo = new File("Vacunas.txt");
+                    File archivo = new File("solicitudes.txt");
                     FileWriter escribir = new FileWriter(archivo, true);
                     int valorEntero = (int)Math.floor(Math.random()*(10-1+1)+1);
                     for (int i = 0; i <  valorEntero; i++) {
