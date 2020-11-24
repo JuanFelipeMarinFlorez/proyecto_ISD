@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class BuscarSolicitudes extends JFrame {
 
@@ -41,7 +43,7 @@ public class BuscarSolicitudes extends JFrame {
 
 	public BuscarSolicitudes() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 338, 320);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -53,7 +55,7 @@ public class BuscarSolicitudes extends JFrame {
 		txtBuscarSolicitudes.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtBuscarSolicitudes.setEditable(false);
 		txtBuscarSolicitudes.setColumns(10);
-		txtBuscarSolicitudes.setBounds(144, 18, 185, 26);
+		txtBuscarSolicitudes.setBounds(82, 17, 185, 26);
 		contentPane.add(txtBuscarSolicitudes);
 		
 		txtVacuna = new JTextField();
@@ -79,28 +81,32 @@ public class BuscarSolicitudes extends JFrame {
 		
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(188, 81, 130, 26);
+		textField.setBounds(175, 81, 130, 26);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
-		textField_1.setBounds(188, 134, 130, 26);
+		textField_1.setBounds(175, 134, 130, 26);
 		contentPane.add(textField_1);
 		
 		textField_2 = new JTextField();
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
-		textField_2.setBounds(188, 190, 130, 26);
+		textField_2.setBounds(175, 190, 130, 26);
 		contentPane.add(textField_2);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(330, 105, 117, 29);
+		JButton btnNewButton = new JButton("Pedir");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBounds(22, 243, 117, 29);
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(330, 157, 117, 29);
-		contentPane.add(btnNewButton_1);
+		JButton btnBuscarSolicitudes = new JButton("Buscar solicitudes");
+		btnBuscarSolicitudes.setBounds(175, 243, 139, 29);
+		contentPane.add(btnBuscarSolicitudes);
 	}
 }
