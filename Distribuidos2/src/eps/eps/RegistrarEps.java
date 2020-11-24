@@ -14,7 +14,6 @@ import java.awt.Font;
 public class RegistrarEps extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtVacunas;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField fieldNombre;
@@ -22,6 +21,7 @@ public class RegistrarEps extends JFrame {
 	private JTextField txtVerificarContrasea;
 	private JTextField textField_3;
 	private JButton btnNewButton;
+	private JTextField textField_2;
 	
 	/**
 	 * Launch the application.
@@ -48,14 +48,6 @@ public class RegistrarEps extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		txtVacunas = new JTextField();
-		txtVacunas.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtVacunas.setEditable(false);
-		txtVacunas.setText("Vacunas");
-		txtVacunas.setBounds(180, 18, 93, 26);
-		contentPane.add(txtVacunas);
-		txtVacunas.setColumns(10);
 		
 		textField = new JTextField();
 		textField.setText("Nombre de usuario");
@@ -96,5 +88,12 @@ public class RegistrarEps extends JFrame {
 		btnNewButton = new JButton("Guardar");
 		btnNewButton.setBounds(310, 232, 117, 29);
 		contentPane.add(btnNewButton);
+		
+		textField_2 = new JTextField();
+		textField_2.setText("Sistema de vacunas");
+		textField_2.setEditable(false);
+		textField_2.setColumns(10);
+		textField_2.setBounds(147, 18, 154, 26);
+		contentPane.add(textField_2);
 	}
 }
