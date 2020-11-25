@@ -15,6 +15,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
+
 
 public class InterfaceEps extends JFrame {
 
@@ -23,7 +25,8 @@ public class InterfaceEps extends JFrame {
 	private JTextField txtUsername;
 	private JTextField txtContrasea;
 	private JTextField fieldUsername;
-	private JTextField textContraseña;
+	private JTextField textContrasena;
+	private byte[] iv = new byte[16];
 
 	/**
 	 * Launch the application.
@@ -45,6 +48,7 @@ public class InterfaceEps extends JFrame {
 	 * Create the application.
 	 */
 	public InterfaceEps() {
+		Seguridad security= new Seguridad();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -79,16 +83,32 @@ public class InterfaceEps extends JFrame {
 		contentPane.add(fieldUsername);
 		fieldUsername.setColumns(10);
 		
-		textContraseña = new JTextField();
-		textContraseña.setColumns(10);
-		textContraseña.setBounds(244, 158, 162, 26);
-		contentPane.add(textContraseña);
+		textContrasena = new JTextField();
+		textContrasena.setColumns(10);
+		textContrasena.setBounds(244, 158, 162, 26);
+		contentPane.add(textContrasena);
 		
 		JButton btnNewButton = new JButton("Iniciar sesión");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BuscarSolicitudes iniciarSesion = new BuscarSolicitudes();
-				iniciarSesion.setVisible(true);
+				if(fieldUsername.getText().length() ==0) {
+					JOptionPane.showMessageDialog(null, "El campo de usuario no debe de estar vacio");
+				}
+				else if(fieldUsername.getText().length() != 16) {
+					JOptionPane.showMessageDialog(null, "El campo de usuario no es valido (16 caracteres)");
+				}
+				else if(textContrasena.getText().length()==0) {
+					JOptionPane.showMessageDialog(null, "El campo de contrasena no debe de estar vacio");
+				}
+				else if(security.buscarUsuario(fieldUsername.getText(),iv,textContrasena.getText())) {
+					BuscarSolicitudes iniciarSesion = new BuscarSolicitudes();
+					iniciarSesion.setVisible(true);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Usuario o contrasena no validos");
+					
+				}
+				
 			}
 		});
 		btnNewButton.setBackground(Color.GRAY);
@@ -98,7 +118,7 @@ public class InterfaceEps extends JFrame {
 		JButton btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarEps registrarse = new RegistrarEps();
+				RegistrarEps registrarse = new RegistrarEps(security);
 				registrarse.setVisible(true);
 			}
 		});

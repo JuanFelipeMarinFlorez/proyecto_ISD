@@ -3,6 +3,7 @@ package eps;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class RegistrarEps extends JFrame {
 
@@ -17,11 +20,11 @@ public class RegistrarEps extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField fieldNombre;
-	private JTextField fieldContraseña;
-	private JTextField txtVerificarContrasea;
+	private JTextField fieldContrasena;
 	private JTextField textField_3;
 	private JButton btnNewButton;
 	private JTextField textField_2;
+	 byte[] iv = new byte[16];
 	
 	/**
 	 * Launch the application.
@@ -30,7 +33,8 @@ public class RegistrarEps extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RegistrarEps frame = new RegistrarEps();
+					Seguridad secure= new Seguridad();
+					RegistrarEps frame = new RegistrarEps(secure);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,8 +44,8 @@ public class RegistrarEps extends JFrame {
 	}
 
 
-	public RegistrarEps() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public RegistrarEps(Seguridad security) {
+		
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -68,17 +72,12 @@ public class RegistrarEps extends JFrame {
 		fieldNombre.setBounds(249, 77, 162, 26);
 		contentPane.add(fieldNombre);
 		
-		fieldContraseña = new JTextField();
-		fieldContraseña.setColumns(10);
-		fieldContraseña.setBounds(250, 128, 162, 26);
-		contentPane.add(fieldContraseña);
+		fieldContrasena = new JTextField();
+		fieldContrasena.setColumns(10);
+		fieldContrasena.setBounds(250, 128, 162, 26);
+		contentPane.add(fieldContrasena);
 		
-		txtVerificarContrasea = new JTextField();
-		txtVerificarContrasea.setText("Verificar contraseña");
-		txtVerificarContrasea.setEditable(false);
-		txtVerificarContrasea.setColumns(10);
-		txtVerificarContrasea.setBounds(30, 185, 152, 26);
-		contentPane.add(txtVerificarContrasea);
+		
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
@@ -86,6 +85,26 @@ public class RegistrarEps extends JFrame {
 		contentPane.add(textField_3);
 		
 		btnNewButton = new JButton("Guardar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(fieldNombre.getText().length()==0) {
+					JOptionPane.showMessageDialog(null, "El campo de usuario no debe de estar vacio");
+				}
+				else if(fieldNombre.getText().length()!=16) {
+					JOptionPane.showMessageDialog(null, "El campo de usuario no es valido (16 caracteres)");
+				}else if(fieldContrasena.getText().length()==0) {
+					JOptionPane.showMessageDialog(null, "El campo de contrasena  no debe de estar vacio");
+				}
+				
+				else if( security.buscarUsuario(fieldNombre.getText())) {
+					JOptionPane.showMessageDialog(null, "Ya existe el usuario ");
+				}
+				else {
+					security.encriptar(fieldNombre.getText(), iv,fieldContrasena.getText());
+				}
+				
+				
+			}});
 		btnNewButton.setBounds(310, 232, 117, 29);
 		contentPane.add(btnNewButton);
 		
