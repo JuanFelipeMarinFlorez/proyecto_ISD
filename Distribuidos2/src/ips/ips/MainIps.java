@@ -76,7 +76,11 @@ public class MainIps {
 			
 			//---------------------------------
 			Ips salu = new Ips("tutaima", 30);
-			Registry r = java.rmi.registry.LocateRegistry.getRegistry(puerto);
+			//Registry r = java.rmi.registry.LocateRegistry.getRegistry(puerto);
+			Registry r = java.rmi.registry.LocateRegistry.createRegistry(puerto);
+			GeneradorVacunas vacunitas= new  GeneradorVacunas();
+			vacunitas.start();
+			
 			//
 			//Ips suma = (Ips)UnicastRemoteObject.exportObject(new Ips(), 1500);
 			r.rebind("suma", (Remote) salu);

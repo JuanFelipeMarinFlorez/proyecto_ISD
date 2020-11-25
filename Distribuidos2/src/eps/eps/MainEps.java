@@ -87,7 +87,7 @@ public class MainEps {
 				String menu =  JOptionPane.showInputDialog(""
 						+ "Suma de dos numeros...........(1)\n"
 						+ "Mostrar vacunas disponibles...(2)\n"
-						+ "Crear transacción.............(3)\n"
+						+ "Crear transacciï¿½n.............(3)\n"
 						+ "Salir.........................(4)\n");
 				
 				switch(menu) {
