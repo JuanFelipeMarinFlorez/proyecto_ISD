@@ -8,6 +8,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 
@@ -25,7 +26,7 @@ public class InterfaceEps extends JFrame {
 	private JTextField txtUsername;
 	private JTextField txtContrasea;
 	private JTextField fieldUsername;
-	private JTextField textContrasena;
+	private JPasswordField textContrasena;
 	private byte[] iv = new byte[16];
 
 	/**
@@ -83,7 +84,7 @@ public class InterfaceEps extends JFrame {
 		contentPane.add(fieldUsername);
 		fieldUsername.setColumns(10);
 		
-		textContrasena = new JTextField();
+		textContrasena = new JPasswordField();
 		textContrasena.setColumns(10);
 		textContrasena.setBounds(244, 158, 162, 26);
 		contentPane.add(textContrasena);
@@ -112,7 +113,7 @@ public class InterfaceEps extends JFrame {
 			}
 		});
 		btnNewButton.setBackground(Color.GRAY);
-		btnNewButton.setBounds(19, 229, 117, 29);
+		btnNewButton.setBounds(289, 229, 117, 29);
 		contentPane.add(btnNewButton);
 		
 		JButton btnRegistrarse = new JButton("Registrarse");
@@ -123,7 +124,7 @@ public class InterfaceEps extends JFrame {
 			}
 		});
 		btnRegistrarse.setBackground(Color.GRAY);
-		btnRegistrarse.setBounds(308, 229, 117, 29);
+		btnRegistrarse.setBounds(41, 229, 117, 29);
 		contentPane.add(btnRegistrarse);
 	}
 }

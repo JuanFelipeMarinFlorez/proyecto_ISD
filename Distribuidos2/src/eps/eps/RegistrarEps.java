@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.border.EmptyBorder;
@@ -20,8 +22,7 @@ public class RegistrarEps extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField fieldNombre;
-	private JTextField fieldContrasena;
-	private JTextField textField_3;
+	private JPasswordField fieldContrasena;
 	private JButton btnNewButton;
 	private JTextField textField_2;
 	 byte[] iv = new byte[16];
@@ -46,7 +47,7 @@ public class RegistrarEps extends JFrame {
 
 	public RegistrarEps(Seguridad security) {
 		
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 249);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -72,17 +73,10 @@ public class RegistrarEps extends JFrame {
 		fieldNombre.setBounds(249, 77, 162, 26);
 		contentPane.add(fieldNombre);
 		
-		fieldContrasena = new JTextField();
+		fieldContrasena = new JPasswordField();
 		fieldContrasena.setColumns(10);
 		fieldContrasena.setBounds(250, 128, 162, 26);
 		contentPane.add(fieldContrasena);
-		
-		
-		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(249, 185, 162, 26);
-		contentPane.add(textField_3);
 		
 		btnNewButton = new JButton("Guardar");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -105,7 +99,7 @@ public class RegistrarEps extends JFrame {
 				
 				
 			}});
-		btnNewButton.setBounds(310, 232, 117, 29);
+		btnNewButton.setBounds(294, 177, 117, 29);
 		contentPane.add(btnNewButton);
 		
 		textField_2 = new JTextField();
