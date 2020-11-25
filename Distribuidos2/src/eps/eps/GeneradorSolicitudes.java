@@ -16,17 +16,17 @@ public class GeneradorSolicitudes extends Thread{
                 try {
                     File archivo = new File("solicitudes.txt");
                     FileWriter escribir = new FileWriter(archivo, true);
-                    int valorEntero = (int)Math.floor(Math.random()*(10-1+1)+1);
+                    int valorEntero = (int)Math.floor(Math.random()*(3-1+1)+1);
                     for (int i = 0; i <  valorEntero; i++) {
                         escribir.write("Vacuna1");
                         escribir.write("\r\n"); 
                     }
-                    valorEntero = (int)Math.floor(Math.random()*(10-1+1)+1);
+                    valorEntero = (int)Math.floor(Math.random()*(3-1+1)+1);
                     for (int i = 0; i <  valorEntero; i++) {
                         escribir.write("Vacuna2");
                         escribir.write("\r\n"); 
                     }
-                    valorEntero = (int)Math.floor(Math.random()*(10-1+1)+1);
+                    valorEntero = (int)Math.floor(Math.random()*(3-1+1)+1);
                     for (int i = 0; i <  valorEntero; i++) {
                         escribir.write("Vacuna3");
                         escribir.write("\r\n"); 
@@ -36,7 +36,7 @@ public class GeneradorSolicitudes extends Thread{
                 catch (Exception e) {
                     System.out.println("Error al generar solicitudes de vacunas");
                 }
-            Thread.sleep(10000);
+            Thread.sleep(3000);
             }
         }
         catch (InterruptedException e) {

@@ -9,11 +9,67 @@ import java.security.SecureRandom;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
+import java.util.Vector;
 
 public class Seguridad {
 
     public static SecureRandom sr = new SecureRandom();
+    
+    
+    public static int[] buscarsolicitudes() {
+    	int [] vacunas= new int[3];
+    	Vector vacunitas = new Vector();
+    	File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+           archivo = new File ("solicitudes.txt");
+           fr = new FileReader (archivo);
+           br = new BufferedReader(fr);
+           String linea;
+           while((linea=br.readLine())!=null){
+        	   vacunitas.add(linea);
+           }
+           for (int i=0; i<vacunitas.size(); i++) {
+        	   if(vacunitas.get(i).equals("Vacuna1")) {
+        		   vacunas[0]++;
+        	   }
+        	   else if(vacunitas.get(i).equals("Vacuna2")) {
+        		   vacunas[1]++;
+        	   }
+        	   else if(vacunitas.get(i).equals("Vacuna3")) {
+        		   vacunas[2]++;
+        	   }
+           }
+           
+           
+           return vacunas;
+        } 
+        catch(Exception e){
+           e.printStackTrace();
+          return vacunas;
+        }finally{
+           // En el finally cerramos el fichero, para asegurarnos
+           // que se cierra tanto si todo va bien como si salta 
+           // una excepcion.
+           try{                    
+              if( null != fr ){   
+                 fr.close(); 
+                 archivo.delete();
+              
+              }                  
+           }catch (Exception e2){ 
+              e2.printStackTrace();
+              
+           }
+        }
+
+    }
 
     public static String encriptar(String clave, byte[] iv, String value) {
         try {
@@ -39,13 +95,10 @@ public class Seguridad {
         BufferedReader br = null;
 
         try {
-           // Apertura del fichero y creacion de BufferedReader para poder
-           // hacer una lectura comoda (disponer del metodo readLine()).
+          
            archivo = new File ("Seguridad.txt");
            fr = new FileReader (archivo);
            br = new BufferedReader(fr);
-
-           // Lectura del fichero
            String linea;
            while((linea=br.readLine())!=null){
         	   
@@ -70,9 +123,7 @@ public class Seguridad {
            e.printStackTrace();
           return false;
         }finally{
-           // En el finally cerramos el fichero, para asegurarnos
-           // que se cierra tanto si todo va bien como si salta 
-           // una excepcion.
+          
            try{                    
               if( null != fr ){   
                  fr.close();     
@@ -91,13 +142,10 @@ public class Seguridad {
         FileReader fr = null;
         BufferedReader br = null;
     	 try {
-             // Apertura del fichero y creacion de BufferedReader para poder
-             // hacer una lectura comoda (disponer del metodo readLine()).
+             
              archivo = new File ("Seguridad.txt");
              fr = new FileReader (archivo);
              br = new BufferedReader(fr);
-
-             // Lectura del fichero
              String linea;
              while((linea=br.readLine())!=null){
           	   
@@ -116,9 +164,6 @@ public class Seguridad {
              e.printStackTrace();
             return false;
           }finally{
-             // En el finally cerramos el fichero, para asegurarnos
-             // que se cierra tanto si todo va bien como si salta 
-             // una excepcion.
              try{                    
                 if( null != fr ){   
                    fr.close();     

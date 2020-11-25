@@ -50,6 +50,8 @@ public class InterfaceEps extends JFrame {
 	 */
 	public InterfaceEps() {
 		Seguridad security= new Seguridad();
+		GeneradorSolicitudes sol = new GeneradorSolicitudes();
+		sol.start();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -102,7 +104,7 @@ public class InterfaceEps extends JFrame {
 					JOptionPane.showMessageDialog(null, "El campo de contrasena no debe de estar vacio");
 				}
 				else if(security.buscarUsuario(fieldUsername.getText(),iv,textContrasena.getText())) {
-					BuscarSolicitudes iniciarSesion = new BuscarSolicitudes();
+					BuscarSolicitudes iniciarSesion = new BuscarSolicitudes(security);
 					iniciarSesion.setVisible(true);
 				}
 				else {

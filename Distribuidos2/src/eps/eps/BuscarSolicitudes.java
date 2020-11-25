@@ -31,7 +31,8 @@ public class BuscarSolicitudes extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BuscarSolicitudes frame = new BuscarSolicitudes();
+					Seguridad secure= new Seguridad();
+					BuscarSolicitudes frame = new BuscarSolicitudes(secure);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +42,7 @@ public class BuscarSolicitudes extends JFrame {
 	}
 
 
-	public BuscarSolicitudes() {
+	public BuscarSolicitudes(Seguridad security) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 338, 320);
 		contentPane = new JPanel();
@@ -98,14 +99,18 @@ public class BuscarSolicitudes extends JFrame {
 		contentPane.add(textField_2);
 		
 		JButton btnNewButton = new JButton("Pedir");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnNewButton.setBounds(22, 243, 117, 29);
 		contentPane.add(btnNewButton);
 		
 		JButton btnBuscarSolicitudes = new JButton("Buscar solicitudes");
+		btnBuscarSolicitudes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int []vacunitas=security.buscarsolicitudes();
+				textField.setText(String.valueOf(vacunitas[0]));
+				textField_1.setText(String.valueOf(vacunitas[1]));
+				textField_2.setText(String.valueOf(vacunitas[2]));
+			}
+		});
 		btnBuscarSolicitudes.setBounds(175, 243, 139, 29);
 		contentPane.add(btnBuscarSolicitudes);
 	}
