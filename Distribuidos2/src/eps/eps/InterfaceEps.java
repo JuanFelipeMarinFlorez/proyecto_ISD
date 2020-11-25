@@ -5,6 +5,7 @@ package eps;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -28,6 +29,8 @@ public class InterfaceEps extends JFrame {
 	private JTextField fieldUsername;
 	private JPasswordField textContrasena;
 	private byte[] iv = new byte[16];
+	private Eps eps;
+	
 
 	/**
 	 * Launch the application.
@@ -36,8 +39,8 @@ public class InterfaceEps extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InterfaceEps frame = new InterfaceEps();
-					frame.setVisible(true);
+					//InterfaceEps frame = new InterfaceEps();
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,9 +51,12 @@ public class InterfaceEps extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public InterfaceEps() {
+	public InterfaceEps(Eps eps) {
+		
+		this.eps = eps;
+		
 		Seguridad security= new Seguridad();
-		GeneradorSolicitudes sol = new GeneradorSolicitudes();
+		GeneradorSolicitudes sol = new GeneradorSolicitudes(this.eps.getName());
 		sol.start();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -104,7 +110,7 @@ public class InterfaceEps extends JFrame {
 					JOptionPane.showMessageDialog(null, "El campo de contrasena no debe de estar vacio");
 				}
 				else if(security.buscarUsuario(fieldUsername.getText(),iv,textContrasena.getText())) {
-					BuscarSolicitudes iniciarSesion = new BuscarSolicitudes(security);
+					BuscarSolicitudes iniciarSesion = new BuscarSolicitudes(security,eps);
 					iniciarSesion.setVisible(true);
 				}
 				else {

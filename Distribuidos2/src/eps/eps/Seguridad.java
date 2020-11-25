@@ -28,7 +28,7 @@ public class Seguridad {
         BufferedReader br = null;
 
         try {
-           archivo = new File ("solicitudes.txt");
+           archivo = new File ("Sanitas.txt");
            fr = new FileReader (archivo);
            br = new BufferedReader(fr);
            String linea;

@@ -1,10 +1,12 @@
 package ips;
 
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
@@ -16,7 +18,7 @@ import javax.swing.JOptionPane;
 
 public class MainIps {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, NumberFormatException, HeadlessException, NotBoundException {
 		
 		int puerto = 1099;
 		int vacunasDisponible = 0;
@@ -47,7 +49,7 @@ public class MainIps {
 		         }
 		     }
 			
-		    Ips ips = new Ips(nombre,vacunasDisponible);
+		    Ips ips = new Ips(nombre);
 		    
 			sc.close();
 			/*
@@ -75,15 +77,23 @@ public class MainIps {
 			}*/
 			
 			//---------------------------------
-			Ips salu = new Ips("tutaima", 30);
-			//Registry r = java.rmi.registry.LocateRegistry.getRegistry(puerto);
-			Registry r = java.rmi.registry.LocateRegistry.createRegistry(puerto);
-			GeneradorVacunas vacunitas= new  GeneradorVacunas();
-			vacunitas.start();
-			
-			//
+			Ips salu = new Ips("tutaima");
+			Registry r = java.rmi.registry.LocateRegistry.getRegistry(puerto);
+			//Registry r = java.rmi.registry.LocateRegistry.createRegistry(puerto);
 			//Ips suma = (Ips)UnicastRemoteObject.exportObject(new Ips(), 1500);
-			r.rebind("suma", (Remote) salu);
+			r.rebind("ips", (Remote) salu);
+			r.rebind("ips2", (Remote) ips);
+			
+			GeneradorVacunas vacunitas= new  GeneradorVacunas(salu);
+			GeneradorVacunas vacunitas2= new  GeneradorVacunas(ips);
+			
+			vacunitas.start();
+			vacunitas2.start();
+			
+			//MailInterface mali = (MailInterface)Naming.lookup("//"+"127.0.0.1"+":"+puerto+"/suma");
+			
+			//mali.setIps(salu);
+			
 			JOptionPane.showMessageDialog(null, "servidor conectado");
 			
 		} catch (RemoteException e) {

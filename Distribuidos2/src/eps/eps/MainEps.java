@@ -30,6 +30,7 @@ public class MainEps {
 		String ipv4 = null;
 		
 		try {
+			/*
 			boolean eof = false;
 			int i = 0;
 			
@@ -61,20 +62,22 @@ public class MainEps {
 			
 		    Eps salud = new Eps(nombre,vacunasDisponible);
 		    
-			sc.close();
+			sc.close();*/
 			
 			//HILO que se conecta a rmi y realiza la (por ahora funciones sencillas transaccion)
 			//practicamente es un hilo que esta dentro de un for que posibilita enciar un paciente a la vez
 			
-			//Eps salud = new Eps("Sanitas", 20);
+			Eps salud = new Eps("Sanitas", 20);
 			//---------------------------------------------------------------
 			
 			//Lo importante de RMI
 			
-			Registry miRegistro = LocateRegistry.getRegistry(ipv4, puerto);
-			IpsInterface misuma = (IpsInterface)Naming.lookup("//"+ipv4+":"+puerto+"/suma");
-			
-			
+				Registry miRegistro = LocateRegistry.getRegistry(ipv4, puerto);
+				//IpsInterface misuma = (IpsInterface)Naming.lookup("//"+"127.0.0.1"+":"+1500+"/suma");
+				GeneradorSolicitudes gs = new GeneradorSolicitudes (salud.getName());
+				
+				InterfaceEps frame = new InterfaceEps(salud);
+				frame.setVisible(true);
 			
 			//System.setProperty("java.rmi.server.hostname","192.168.1.10");
 			//IpsInt nIps = (IpsInt) Naming.lookup("//localhost/IpsInt"); 
@@ -82,7 +85,7 @@ public class MainEps {
 			
 			//Suma suma = (Suma) Naming.lookup("//"+ MainServer.IP_SERVER+":"+MainServer.PORT+"/suma");
 			
-			while(true) {
+			/*while(true) {
 				
 				String menu =  JOptionPane.showInputDialog(""
 						+ "Suma de dos numeros...........(1)\n"
@@ -144,12 +147,9 @@ public class MainEps {
 					return ;}
 				}
 				
-				
-				
-				
-			}
+			}*/
 			
-		} catch (RemoteException | MalformedURLException | NotBoundException | FileNotFoundException e) {
+		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

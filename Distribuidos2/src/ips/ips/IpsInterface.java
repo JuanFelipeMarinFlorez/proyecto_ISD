@@ -11,7 +11,8 @@ public interface IpsInterface extends Remote {
 	public int pedirVacunas(String nombreVacuna, int vacunasGastadas) throws RemoteException;
 	
 	public int getVacunasDisponibles()throws RemoteException;
-	// public
+	
+	public String getName()	throws RemoteException;
 	// public void register (Eps eps) throws RemoteException;
 	// public void broadcastMessage (String Message) throws RemoteException;
 

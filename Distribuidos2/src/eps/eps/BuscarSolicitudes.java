@@ -3,15 +3,26 @@ package eps;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.border.EmptyBorder;
+
+import ips.IpsInterface;
+import ips.MailInterface;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
+import java.util.Map.Entry;
 
 public class BuscarSolicitudes extends JFrame {
 
@@ -23,6 +34,7 @@ public class BuscarSolicitudes extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private Eps salud;
 	
 	/**
 	 * Launch the application.
@@ -31,9 +43,9 @@ public class BuscarSolicitudes extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Seguridad secure= new Seguridad();
-					BuscarSolicitudes frame = new BuscarSolicitudes(secure);
-					frame.setVisible(true);
+					//Seguridad secure= new Seguridad();
+					//BuscarSolicitudes frame = new BuscarSolicitudes(secure);
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,7 +54,10 @@ public class BuscarSolicitudes extends JFrame {
 	}
 
 
-	public BuscarSolicitudes(Seguridad security) {
+	public BuscarSolicitudes(Seguridad security, Eps eps) {
+		
+		this.salud = eps;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 338, 320);
 		contentPane = new JPanel();
@@ -99,16 +114,57 @@ public class BuscarSolicitudes extends JFrame {
 		contentPane.add(textField_2);
 		
 		JButton btnNewButton = new JButton("Pedir");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+				MailInterface mail = (MailInterface)Naming.lookup("//"+"127.0.0.1"+":"+1500+"/suma");//la ip debe ser del pc que corrio a MainMail.
+				IpsInterface misuma = mail.ipsInterface();
+				
+				for (Entry<String, Integer> pair : salud.getVacunasXpersonas().entrySet()) {
+					
+						for(int l = 0; l < pair.getValue();l++) {
+							
+							misuma.pedirVacunas(pair.getKey(), 1);
+							System.out.println(l+"\n");
+							
+						}
+						JOptionPane.showMessageDialog(null, "Las vacunas disponibles de "+ pair.getKey() + " es: " + misuma.getVacunasDisponibles());
+					
+				    //pair.getKey(); 
+					//pair.getValue();
+				}
+				} catch (HeadlessException | RemoteException | MalformedURLException | NotBoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
 		btnNewButton.setBounds(22, 243, 117, 29);
 		contentPane.add(btnNewButton);
 		
 		JButton btnBuscarSolicitudes = new JButton("Buscar solicitudes");
 		btnBuscarSolicitudes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					salud = new Eps("Sanitas",20);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				//int numero = new Integer(JOptionPane.showInputDialog("vacuna1"));
+				
 				int []vacunitas=security.buscarsolicitudes();
+				
+				salud.setVacunasXpersonas("vacuna1",new Integer(vacunitas[0]));
+				salud.setVacunasXpersonas("vacuna2",new Integer(vacunitas[1]));
+				salud.setVacunasXpersonas("vacuna3",new Integer(vacunitas[2]));
+				
 				textField.setText(String.valueOf(vacunitas[0]));
 				textField_1.setText(String.valueOf(vacunitas[1]));
 				textField_2.setText(String.valueOf(vacunitas[2]));
+				
 			}
 		});
 		btnBuscarSolicitudes.setBounds(175, 243, 139, 29);

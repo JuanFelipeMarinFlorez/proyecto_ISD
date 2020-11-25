@@ -6,15 +6,19 @@ import  java.util.Random;
 
 public class GeneradorSolicitudes extends Thread{
 
-    public GeneradorSolicitudes(){
+	private String nombreArchivo;
+	
+    public GeneradorSolicitudes(String nombreArchivo){
 
+    	this.nombreArchivo = nombreArchivo;
+    	
     }
 
     public void run(){
         try{
             while(true){
                 try {
-                    File archivo = new File("solicitudes.txt");
+                    File archivo = new File(nombreArchivo+".txt");
                     FileWriter escribir = new FileWriter(archivo, true);
                     int valorEntero = (int)Math.floor(Math.random()*(3-1+1)+1);
                     for (int i = 0; i <  valorEntero; i++) {
