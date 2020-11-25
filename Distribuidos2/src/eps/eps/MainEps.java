@@ -2,6 +2,7 @@ package eps;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -68,6 +69,30 @@ public class MainEps {
 			
 			//Eps salud = new Eps("Sanitas", 20);
 			//---------------------------------------------------------------
+			int numEps = 0;
+			 try{
+		            while(true){
+		                try {
+		                	Eps epsSalud = new Eps("Sanitas", 20);
+		                	
+		                	Registry miRegistro = LocateRegistry.getRegistry(ipv4, puerto);
+		                    GeneradorSolicitudes gs = new GeneradorSolicitudes ();
+		                    			
+		                    InterfaceEps frame = new InterfaceEps();
+		                    frame.setVisible(true);
+		                    
+		                	numEps++;
+		                } 
+		                catch (Exception e) {
+		                    System.out.printf("Error al generar solicitudes de vacunas", numEps);
+		                    
+		                }
+		            Thread.sleep(30);
+		            }
+		        }
+		        catch (InterruptedException e) {
+		            e.printStackTrace();
+		        }
 			
 			//Lo importante de RMI
 			
